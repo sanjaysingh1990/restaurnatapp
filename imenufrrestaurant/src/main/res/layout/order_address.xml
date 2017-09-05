@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_delivery_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="DELIVERY ADDRESS:"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="TOTAL PRICE"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/background_dark"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="5000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/textView"
+                app:layout_constraintRight_toRightOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/txt_buyer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:text="Lakhwnider Singh"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_delivery_address"
+                app:layout_constraintTop_toBottomOf="@+id/txt_delivery_address" />
+
+            <TextView
+                android:id="@+id/txt_buyer_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:maxEms="10"
+                android:maxLines="4"
+                android:text="Phase 8, Industrial Area, Sector 73, Sahibzada Ajit Singh Nagar, Punjab 140308"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/font_size"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_buyer_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_buyer_name" />
+
+            <TextView
+                android:id="@+id/text_phone_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:drawableLeft="@mipmap/ic_phone_number_icon"
+
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="9411702581"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/text_delivery_datetime"
+                app:layout_constraintTop_toBottomOf="@+id/text_delivery_datetime"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_delivery_datetime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dp"
+                android:drawableLeft="@mipmap/ic_timer_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:text="2017-28-08, 5:45 am"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_size"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_buyer_address"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_buyer_address" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

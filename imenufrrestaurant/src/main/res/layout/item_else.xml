@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:id="@+id/view_container"
+
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:translationZ="5dp">
+
+
+            <TextView
+                android:id="@+id/txt_order_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:text="100"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/background_dark"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_order_number_title"
+                app:layout_constraintLeft_toRightOf="@+id/txt_order_number_title"
+                app:layout_constraintRight_toLeftOf="@+id/txt_delivery_address"
+                app:layout_constraintTop_toTopOf="@+id/txt_order_number_title"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:id="@+id/txt_delivery_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
+                android:maxLines="1"
+                android:text="PRICE"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="right"
+                android:maxLines="2"
+                android:text="5000000"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toRightOf="@+id/txt_orderdate"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_delivery_address" />
+
+            <TextView
+                android:id="@+id/txt_order_number_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:text="ORDER ID:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
+                android:textSize="@dimen/font_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_orderdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:text="2017-May-12 14:29 p.m"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="@dimen/font_size"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_order_number_title"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_number_title" />
+
+            <TextView
+                android:id="@+id/text_status_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="32dp"
+                android:drawableTop="@mipmap/ic_icon_order_rejected"
+                android:text="ORDER REJECTED"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price"
+                app:srcCompat="@drawable/app_logo" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
