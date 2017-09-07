@@ -97,8 +97,8 @@ public class AcceptedFragment extends BaseFragment {
 
             @Override
             public void readyToDeliver(final int position) {
-                String title1 = "Are you sure?";
-                String messag1 = "Want to deliver this order?";
+                String title1 = "Alert";
+                String messag1 = "Are you sure you want to dispatch this order ?";
                 String title2 = "Delivered!";
                 String message2 = "Order now in delivery mode";
                 String confirmTxt1 = "YES";
@@ -253,7 +253,7 @@ public class AcceptedFragment extends BaseFragment {
 
     public void showDone() {
         removeItem(mPosition);
-        showDoneAlert("Delivered!", "Order now in delivery mode");
+        showDoneAlert("Dispatched!", "Order dispatched successfully");
 
 
     }

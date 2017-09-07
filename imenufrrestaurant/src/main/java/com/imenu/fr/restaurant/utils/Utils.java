@@ -45,6 +45,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -106,7 +107,7 @@ public class Utils {
     public synchronized Toast showToast(Context context, String toast) {
         if (context != null && msg == null || msg.getView().getWindowVisibility() != View.VISIBLE) {
             msg = Toast.makeText(context, toast, Toast.LENGTH_LONG);
-            msg.setGravity(Gravity.CENTER, 0, 0);
+            msg.setGravity(Gravity.BOTTOM, 0, 150);
             msg.show();
         }
         return msg;
@@ -391,7 +392,20 @@ public class Utils {
         SharedPreferences prefs = new SharedPreferencesEncryption(context);
         return prefs.getString(key, defaultValue);
     }
-
+    /**
+     * ********************** to validate email field *****************************
+     *
+     * @param email
+     * @return
+     */
+    public boolean emailValidator(String email) {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     /**
      * Save value to shared preference.

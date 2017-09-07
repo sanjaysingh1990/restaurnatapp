@@ -54,6 +54,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     private OrderPresenterImp presenterImp;
     private OrderRequest orderRequest = new OrderRequest();
     private int mTotalNotification = 0;
+    boolean mDoubleBackToExitPressedOnce = false;
 
     // UI
     private AHBottomNavigationViewPager viewPager;
@@ -127,12 +128,10 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void readloadPendingData(Double type) {
-        if(type==1) {
+        if (type == 1) {
             PendingFragment pendingFragment = (PendingFragment) adapter.getItem(0);
             pendingFragment.startPullToRefresh();
-        }
-        else if(type==2)
-        {
+        } else if (type == 2) {
             extraFragment = (ExtraFragment) adapter.getItem(4);
             extraFragment.startPullToRefresh();
 
@@ -371,8 +370,8 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 break;
 
         }
-        Gson gson = new Gson();
-        Log.e("request", gson.toJson(orderRequest));
+//        Gson gson = new Gson();
+//        Log.e("request", gson.toJson(orderRequest));
     }
 
     @Override
@@ -744,6 +743,23 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
     @Override
     public void onBackPressed() {
-        finish();
+        if (mDoubleBackToExitPressedOnce) {
+            finish();
+            return;
+        }
+        this.mDoubleBackToExitPressedOnce = true;
+        Utils.getInstance().showToast( this,getResources().getString(R.string.double_back_press));
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mDoubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+
+
     }
+
+
 }

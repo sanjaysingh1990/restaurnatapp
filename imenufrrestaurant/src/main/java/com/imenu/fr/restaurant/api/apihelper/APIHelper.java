@@ -81,9 +81,9 @@ public class APIHelper {
         }
     }
 
-    public void cancelRequest() {
-        if (okHttpClient != null)
-            okHttpClient.dispatcher().cancelAll();
-
-    }
+//    public void cancelRequest() {
+//        if (okHttpClient != null)
+//            okHttpClient.dispatcher().cancelAll();
+//
+//    }
 }

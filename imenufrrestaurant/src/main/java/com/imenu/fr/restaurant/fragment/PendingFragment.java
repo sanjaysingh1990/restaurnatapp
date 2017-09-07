@@ -85,8 +85,8 @@ public class PendingFragment extends BaseFragment {
         adapter = new Adapter(itemsData, new ActionCallBack() {
             @Override
             public void acceptOrder(final int position) {
-                String title1 = "Are you sure?";
-                String messag1 = "Want to accept this order?";
+                String title1 = "Alert";
+                String messag1 = "Are you sure you want to accept this order ?";
                 final String title2 = "Accepted!";
                 final String message2 = "Order accepted successfully";
                 String confirmTxt1 = "YES";
@@ -116,8 +116,8 @@ public class PendingFragment extends BaseFragment {
 
             @Override
             public void cancelOrder(final int position) {
-                String title1 = "Are you sure?";
-                String messag1 = "Want to reject this order?";
+                String title1 = "Alert";
+                String messag1 = " Are you sure you want to reject this order ?";
                 final String title2 = "Rejected!";
                 final String message2 = "Order rejected successfully";
                 String confirmTxt1 = "YES";

@@ -5,18 +5,26 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.imenu.fr.restaurant.HomeActivity;
 import com.imenu.fr.restaurant.R;
+import com.imenu.fr.restaurant.api.model.Status;
 import com.imenu.fr.restaurant.api.model.login.LoginRequest;
 import com.imenu.fr.restaurant.api.model.login.LoginResponse;
 import com.imenu.fr.restaurant.databinding.LoginFragmentBinding;
 import com.imenu.fr.restaurant.fragment.BaseFragment;
 import com.imenu.fr.restaurant.utils.Constants;
+import com.imenu.fr.restaurant.utils.DrawableClickListener;
 import com.imenu.fr.restaurant.utils.Utils;
 
 import java.util.regex.Matcher;
@@ -30,6 +38,7 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
     private LoginFragmentBinding binding;
     private LoginPresenterImp presenterImp;
     private LoginRequest loginRequest;
+    private boolean isPasswordShown;
 
     /**
      * Create a new instance of the fragment
@@ -53,6 +62,7 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
     void init() {
         presenterImp = new LoginPresenterImp(this);
         binding.btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
+        setListener();
 
     }
 
@@ -61,17 +71,17 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
         String password = binding.edittextPassword.getText().toString();
         if (email.length() == 0) {
             binding.edittextEmail.requestFocus();
-            binding.edittextEmail.setError("please enter email");
+            binding.edittextEmail.setError(getString(R.string.error_empty_email));
             return false;
         }
         if (!emailValidator(email)) {
             binding.edittextEmail.requestFocus();
-            binding.edittextEmail.setError("invalid email");
+            binding.edittextEmail.setError(getString(R.string.error_invalid_email));
             return false;
         }
         if (password.length() == 0) {
             binding.edittextPassword.requestFocus();
-            binding.edittextPassword.setError("please enter password");
+            binding.edittextPassword.setError(getString(R.string.error_empty_password));
             return false;
         }
         loginRequest = new LoginRequest();
@@ -149,6 +159,21 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
     }
 
     @Override
+    public void onOtpSendSuccess(Status status) {
+        //nothing to do
+    }
+
+    @Override
+    public void onOtpVerifiedSuccess(Status status) {
+        //nothing to do
+    }
+
+    @Override
+    public void onPasswordResetSuccess(Status status) {
+        //nothing to do
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         presenterImp.onDestroyView();
@@ -183,6 +208,57 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
 
             }
         }
+
+        public void forgotPassword(View view) {
+
+            binding.edittextEmail.setError(null);
+            binding.edittextPassword.setError(null);
+            addFragment(EnterEmailFragment.newInstance());
+        }
     }
 
+    public void setListener() {
+        binding.edittextPassword.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(binding.edittextPassword) {
+            @Override
+            public boolean onDrawableClick() {
+                // your action here
+                if (!isPasswordShown) {
+                    isPasswordShown = true;
+                    binding.edittextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.edittextPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_open, 0);
+                } else {
+                    isPasswordShown = false;
+                    binding.edittextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.edittextPassword
+                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_close, 0);
+                }
+                return false;
+            }
+        });
+
+        binding.edittextEmail.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(binding.edittextPassword) {
+            @Override
+            public boolean onDrawableClick() {
+                // your action here
+                binding.edittextEmail.setText(null);
+                return false;
+            }
+        });
+
+
+        binding.edittextPassword.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //do here your stuff f
+                    new ClickHandler().signIn(null);
+                    return true;
+                }
+                return false;
+            }
+
+
+        });
+
+    }
 }

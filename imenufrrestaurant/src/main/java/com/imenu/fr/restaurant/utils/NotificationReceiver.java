@@ -44,12 +44,11 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent data) {
 
-
         /*
         *********************** if user logout the from app to avoid notifications device token is not deleted from backend while logout
          */
-//        if (!Utilities.getInstance().getValueFromSharedPreference(Constants.REACHED_HOME, false, context))
-//            return;
+        if (!Utils.getInstance().getValue(Constants.LOGGED_IN, false, context))
+            return;
 
 
         try {
@@ -60,7 +59,7 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
             if (data.getStringExtra("order_status") != null)
                 mOrderStatus = Integer.parseInt(data.getStringExtra("order_status"));
 
-            Log.e("orderid", data.getStringExtra("order_id") + "");
+           // Log.e("orderid", data.getStringExtra("order_id") + "");
         } catch (Exception ex) {
             Log.e("pushdata", ex.getMessage() + "");
 
@@ -92,12 +91,12 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
 //{
 //
 //}
-        Log.e("status", isAppIsInBackground(context) + "'");
+        //Log.e("status", isAppIsInBackground(context) + "'");
 
         NOTIID = (int) System.currentTimeMillis();
         //   Logger.e("notiid",NOTIID+"");
         Intent intent;
-                   intent = new Intent(context, DetailsActivity.class);
+        intent = new Intent(context, DetailsActivity.class);
 
         intent.putExtra(Constants.ORDER_ID, mOrderId);
         intent.putExtra(Constants.ORDER_STATUS, mOrderStatus);

@@ -26,7 +26,14 @@ public class SplashFragment extends BaseFragment implements Animation.AnimationL
     SplashFragmentBinding binding;
     private Animation anim1;
     private Animation anim2;
+    private Handler handler = new Handler();
 
+    Runnable delay = new Runnable() {
+        @Override
+        public void run() {
+            startAnimation();
+        }
+    };
 
     /**
      * Create a new instance of the fragment
@@ -36,6 +43,7 @@ public class SplashFragment extends BaseFragment implements Animation.AnimationL
 
         return fragment;
     }
+
 
     @Nullable
     @Override
@@ -48,12 +56,6 @@ public class SplashFragment extends BaseFragment implements Animation.AnimationL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startAnimation();
-            }
-        }, 200);
         init();
 
     }
@@ -65,7 +67,7 @@ public class SplashFragment extends BaseFragment implements Animation.AnimationL
                 R.anim.anim_up);
         anim1.setAnimationListener(this);
         anim2.setAnimationListener(this);
-
+        handler.postDelayed(delay, 200);
 
     }
 
@@ -81,7 +83,7 @@ public class SplashFragment extends BaseFragment implements Animation.AnimationL
             @Override
             public void run() {
                 if (!Utils.getInstance().getValue(Constants.LOGGED_IN, false, getActivity())) {
-                    addFragment(new LoginFragment());
+                    replaceFragment(new LoginFragment());
                 } else {
                     startActivity(new Intent(getActivity(), HomeActivity.class));
                     getActivity().finish();

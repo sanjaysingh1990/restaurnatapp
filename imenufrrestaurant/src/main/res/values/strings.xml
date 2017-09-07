@@ -14,8 +14,14 @@
 
     <!-- sing in -->
     <string name="Sign_in">Sign in</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="double_back_press">Press back again to exit</string>
+
+    <string name="submit">Submit</string>
     <string name="Success">Success</string>
     <string name="Loading">Signing in..</string>
+    <string name="Loading2">Verifying..</string>
+    <string name="Loading3">Restting..</string>
     <!-- HEADER TEXT -->
     <string name="pending">Pending</string>
     <string name="accepted">Accepted</string>
@@ -27,5 +33,16 @@
     <string name="logout">Logout</string>
     <string name="no_internet_message">Internet connection appears to be offline. Please check your network settings.</string>
     <string name="failed_toconnnect_server">Oops! looks like we are having internal problems. Please try again later.</string>
+    <string name="hint_new_password">Please enter new password</string>
+    <string name="password_changed_message">Your Password has been changed successfully.</string>
+    <string name="please_enter_the_otp_sent_on_your_email">Please enter the OTP sent on your email</string>
+    <string name="error_wrong_otp">Please enter OTP</string>
+    <string name="error_invalid_otp_entered">You have entered wrong OTP</string>
+    <string name="otp_resend_text">A new code has been sent to your email</string>
+    <string name="otp_sent_message">OTP has been sent to your email</string>
+    <string name="error_password_length">Password should be at-least 8 characters</string>
+    <string name="error_empty_email">Please enter email</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_empty_password">Please enter password</string>
 
 </resources>

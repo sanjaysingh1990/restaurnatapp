@@ -6,6 +6,7 @@ import com.imenu.fr.restaurant.api.model.login.LoginRequest;
 import com.imenu.fr.restaurant.api.model.login.LoginResponse;
 import com.imenu.fr.restaurant.api.model.order.OrderResponse;
 import com.imenu.fr.restaurant.api.model.orderoperation.OrderOperationRequest;
+import com.imenu.fr.restaurant.api.model.resetpassword.ResetPasswordRequest;
 import com.imenu.fr.restaurant.api.model.updateitemstatus.UpdateItemStatusRequest;
 
 import retrofit2.Call;
@@ -37,6 +38,14 @@ public interface Service {
 
     @POST("updateStatus")
     Call<Status> updateItemStatus(@Body UpdateItemStatusRequest updateItemStatusRequest);
+
+    @POST("storeforgotPassword")
+    Call<Status> requestOtp(@Body ResetPasswordRequest resetPasswordRequest);
+    @POST("otpVerify")
+    Call<Status> verifyOtp(@Body ResetPasswordRequest resetPasswordRequest);
+    @POST("storepasswordReset")
+    Call<Status> resetPassword(@Body ResetPasswordRequest resetPasswordRequest);
+
 
 
     //

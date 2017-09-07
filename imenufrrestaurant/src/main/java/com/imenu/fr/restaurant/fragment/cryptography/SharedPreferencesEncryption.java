@@ -43,7 +43,8 @@ public class SharedPreferencesEncryption implements SharedPreferences {
     public SharedPreferencesEncryption(Context context) {
         // Proxy design pattern
         if (SharedPreferencesEncryption.sFile == null) {
-            SharedPreferencesEncryption.sFile = PreferenceManager.getDefaultSharedPreferences(context);
+            String fileName=context.getPackageName();
+            SharedPreferencesEncryption.sFile = context.getSharedPreferences(fileName,0);
         }
         // Initialize encryption/decryption key
         try {

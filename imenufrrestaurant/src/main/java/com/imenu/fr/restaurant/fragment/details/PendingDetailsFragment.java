@@ -40,11 +40,9 @@ import java.util.regex.Pattern;
 /**
  *
  */
-public class PendingDetailsFragment extends BaseFragment implements ILoginContract.LoginView {
+public class PendingDetailsFragment extends BaseFragment {
 
     private FragmentPendingDetailsBinding binding;
-    private LoginPresenterImp presenterImp;
-    private LoginRequest loginRequest;
     private List<Object> mItemList;
     private OrderDetailsAdapter mAdapter;
     private OrderAcceptReject orderAcceptReject;
@@ -77,8 +75,7 @@ public class PendingDetailsFragment extends BaseFragment implements ILoginContra
 
     void init() {
         getActivity().setTitle(getResources().getString(R.string.pending));
-        presenterImp = new LoginPresenterImp(this);
-        mItemList = new ArrayList<Object>();
+         mItemList = new ArrayList<Object>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         binding.recyclerView.setLayoutManager(layoutManager);
         mAdapter = new OrderDetailsAdapter(getActivity(), mItemList);
@@ -143,45 +140,10 @@ public class PendingDetailsFragment extends BaseFragment implements ILoginContra
         return matcher.matches();
     }
 
-    @Override
-    public void showProgressDialog() {
 
 
-    }
 
-    @Override
-    public void hideProgressDialog() {
-    }
 
-    @Override
-    public void onServerError() {
-        showAlert(getResources().getString(R.string.failed_toconnnect_server));
-    }
-
-    @Override
-    public void onError(String message) {
-
-        showAlert(message);
-
-    }
-
-    @Override
-    public void showAlert(String message) {
-        Utils.getInstance().showAlert(message, getActivity());
-
-    }
-
-    @Override
-    public void onLoginSuccess(LoginResponse loginResponse) {
-        startActivity(new Intent(getActivity(), HomeActivity.class));
-        getActivity().finish();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenterImp.onDestroyView();
-    }
 
     private void sendMessage() {
         new Handler().postDelayed(new Runnable() {

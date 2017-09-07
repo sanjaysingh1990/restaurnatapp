@@ -18,6 +18,8 @@ public class Constants {
     public static final String ORDER_ID="orderid";
     public static final String ORDER_STATUS="orderstatus";
     public static final String EURO="\u20ac";
+    public static final String EMAIL="email";
+
 
 
     public static final String IS_DEVICE_REGISTERED="device_registered";
@@ -44,6 +46,11 @@ public class Constants {
 
     public static final int PENDING_ORDER_DETAILS = 100;
     public static final int ACCEPTED_ORDER_DETAILS = 101;
+
+    //reset password
+    public static final int REQUEST_OTP=1;
+    public static final int VERIFY_OTP=2;
+    public static final int RESET_PASSWORD=3;
 
 
 
