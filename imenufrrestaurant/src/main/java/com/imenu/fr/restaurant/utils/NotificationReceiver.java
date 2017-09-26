@@ -40,7 +40,22 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
     private int mOrderId;
     private int mOrderStatus;
     private int NOTIID;
+    public static String intentToString(Intent intent) {
+        if (intent == null)
+            return "";
 
+        StringBuilder stringBuilder = new StringBuilder("action: ")
+                .append(intent.getAction())
+                .append(" data: ")
+                .append(intent.getDataString())
+                .append(" extras: ")
+                ;
+        for (String key : intent.getExtras().keySet())
+            stringBuilder.append(key).append("=").append(intent.getExtras().get(key)).append(" ");
+
+        return stringBuilder.toString();
+
+    }
     @Override
     public void onReceive(final Context context, Intent data) {
 
@@ -50,10 +65,11 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
         if (!Utils.getInstance().getValue(Constants.LOGGED_IN, false, context))
             return;
 
+       // Log.e("data",intentToString(data));
 
         try {
-            mMessage = data.getStringExtra(MESSAGE);
-            mTitle = data.getStringExtra(TITLE);
+            mMessage = data.getStringExtra("message");
+            mTitle = data.getStringExtra("title");
             if (data.getStringExtra("order_id") != null)
                 mOrderId = Integer.parseInt(data.getStringExtra("order_id"));
             if (data.getStringExtra("order_status") != null)

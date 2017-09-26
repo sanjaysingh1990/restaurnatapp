@@ -71,7 +71,11 @@ public class AcceptedFragment extends BaseFragment {
 
     }
 
-
+    public void clearList()
+    {
+        itemsData.clear();
+        adapter.notifyDataSetChanged();
+    }
     /**
      * Init the fragment
      */
@@ -131,7 +135,7 @@ public class AcceptedFragment extends BaseFragment {
                 intent.putExtra(Constants.DATA, itemsData.get(mPosition));
                 getActivity().startActivity(intent);
             }
-        });
+        },getActivity());
         binding.recyclerView.setAdapter(adapter);
         //pull to refresh listener
         binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListner);

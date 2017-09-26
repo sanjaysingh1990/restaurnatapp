@@ -171,7 +171,7 @@ public class PendingFragment extends BaseFragment {
 
                 getActivity().startActivity(intent);
             }
-        });
+        },getActivity());
         binding.recyclerView.setAdapter(adapter);
         //pull to refresh listener
         binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListner);
@@ -243,6 +243,11 @@ public class PendingFragment extends BaseFragment {
 
     }
 
+    public void clearList()
+    {
+        itemsData.clear();
+        adapter.notifyDataSetChanged();
+    }
     public void loadData(List<OrderData> orderDataList) {
         isDataLoaded = true;
         hidePullToRefresh();

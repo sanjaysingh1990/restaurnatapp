@@ -1,5 +1,8 @@
 package com.imenu.fr.restaurant.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import com.imenu.fr.restaurant.ActionCallBack;
 import com.imenu.fr.restaurant.R;
 import com.imenu.fr.restaurant.api.model.order.OrderData;
+import com.imenu.fr.restaurant.api.model.order.Tookan;
 import com.imenu.fr.restaurant.utils.Constants;
 
 import java.util.List;
@@ -25,9 +29,11 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<OrderData> mDataset;
     private ActionCallBack mCallBack;
+    private Context mContext;
 
-    public Adapter(List<OrderData> dataset, ActionCallBack actionCallBack) {
+    public Adapter(List<OrderData> dataset, ActionCallBack actionCallBack,Context context) {
         mDataset = dataset;
+        mContext=context;
         mCallBack = actionCallBack;
     }
 
@@ -111,6 +117,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 viewHolderOther.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
                 deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderOther.mTextOrderDateTime.setText(deliveryDateTime);
+                viewHolderOther.mTextOrderStatus.setVisibility(View.VISIBLE);
                 viewHolderOther.mTextStatusIndicator.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_icon_order_dispatched, 0, 0);
                 viewHolderOther.mTextStatusIndicator.setText("ORDER DISPATCHED");
 
@@ -247,6 +254,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class ViewHolderOther extends RecyclerView.ViewHolder {
         private TextView mTextOrderNo;
         private TextView mTextPrice;
+        private TextView mTextOrderStatus;
         private TextView mTextOrderDateTime;
         private TextView mTextStatusIndicator;
         private LinearLayout mContainer;
@@ -254,6 +262,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ViewHolderOther(View v) {
             super(v);
             mTextOrderNo = (TextView) v.findViewById(R.id.txt_order_number);
+            mTextOrderStatus = (TextView) v.findViewById(R.id.text_order_status);
             mTextPrice = (TextView) v.findViewById(R.id.txt_price);
             mTextOrderDateTime = (TextView) v.findViewById(R.id.txt_orderdate);
             mTextStatusIndicator = (TextView) v.findViewById(R.id.text_status_indicator);
@@ -267,6 +276,28 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 }
             });
+        mTextOrderStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tookan tokaan = mDataset.get(getAdapterPosition()).getTookan();
+                if(tokaan!=null)
+                {
+                    try
+                    {
+                        double latitude1=Double.parseDouble(tokaan.getTookanLatitude());
+                        double longitude1=Double.parseDouble(tokaan.getTookanLongitude());
+
+                        Uri uri = Uri.parse("geo:0,0?q="+latitude1+","+longitude1+"(Delivery Boy)");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        mContext.startActivity(intent);
+                    }
+                     catch (Exception ex)
+                     {
+
+                     }
+                }
+            }
+        });
         }
     }
     class ViewHolderLoader extends RecyclerView.ViewHolder {

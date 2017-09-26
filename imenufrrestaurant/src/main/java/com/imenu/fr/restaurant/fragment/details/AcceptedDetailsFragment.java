@@ -109,9 +109,9 @@ public class AcceptedDetailsFragment extends BaseFragment {
         }
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(Constants.FROM)) {
-            binding.btnAccept.setVisibility(View.VISIBLE);
+           // binding.btnAccept.setVisibility(View.VISIBLE);
         } else {
-            binding.btnAccept.setVisibility(View.GONE);
+           // binding.btnAccept.setVisibility(View.GONE);
 
         }
     }

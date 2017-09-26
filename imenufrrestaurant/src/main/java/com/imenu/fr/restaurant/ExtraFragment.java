@@ -129,7 +129,7 @@ public class ExtraFragment extends BaseFragment {
                 intent.putExtra(Constants.DATA, itemsData.get(position));
                 getActivity().startActivity(intent);
             }
-        });
+        },getActivity());
         binding.recyclerView.setAdapter(adapter);
         //pull to refresh listener
         binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListner);
@@ -161,7 +161,11 @@ public class ExtraFragment extends BaseFragment {
         binding.recyclerView.addOnScrollListener(onScrollListener);//add load more funtionality
 
     }
-
+    public void clearList()
+    {
+        itemsData.clear();
+        adapter.notifyDataSetChanged();
+    }
     /**
      * ************ show load more indicator **********
      */

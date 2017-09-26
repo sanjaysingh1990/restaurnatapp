@@ -5,7 +5,7 @@ package com.imenu.fr.restaurant.utils;
  */
 
 public class Constants {
-    public static final String BASE_URL = "http://imenufor.debutinfotech.com/";
+    public static final String BASE_URL = "http://ec2-52-40-213-190.us-west-2.compute.amazonaws.com/";
     public static final String USER_ID="user_id";
     public static final String STORE_ID="store_id";
     public static final String LOGGED_IN="logged_in";
@@ -19,7 +19,7 @@ public class Constants {
     public static final String ORDER_STATUS="orderstatus";
     public static final String EURO="\u20ac";
     public static final String EMAIL="email";
-
+    public static final String FILE="IMENUFR_RESTAURANT";
 
 
     public static final String IS_DEVICE_REGISTERED="device_registered";
@@ -29,8 +29,8 @@ public class Constants {
     public static final int PENDING = 2;
     public static final int ACCEPTED = 3;
     public static final int REJECTED = 4;
-    public static final int DISPATCHED = 5;
-    public static final int COMPLETED = 1;
+    public static final int DISPATCHED = 6;
+    public static final int COMPLETED = 7;
     public static final int LIMIT=8;
     public static final int LOADER=10;
 

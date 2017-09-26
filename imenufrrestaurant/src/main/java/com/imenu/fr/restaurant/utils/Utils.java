@@ -62,6 +62,7 @@ public class Utils {
     private Toast msg;
 
     private Dialog mProgressDialog;
+    private SweetAlertDialog mSweetDialog;
 
     public static Utils getInstance() {
         if (utilities == null) {
@@ -355,8 +356,10 @@ public class Utils {
     public synchronized void saveValue(String key, String value, Context context) {
         if (context == null) return;
 
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        SharedPreferences.Editor saveValue = prefs.edit();
+
+       SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+       SharedPreferences.Editor saveValue = sharedpreferences.edit();
+
         saveValue.putString(key, value);
         saveValue.apply();
     }
@@ -371,8 +374,8 @@ public class Utils {
      */
     public synchronized void saveValue(String key, long value, Context context) {
         if (context == null) return;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        SharedPreferences.Editor saveValue = prefs.edit();
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor saveValue = sharedpreferences.edit();
         saveValue.putLong(key, value);
         saveValue.apply();
     }
@@ -389,9 +392,10 @@ public class Utils {
      */
     public synchronized String getValue(String key, String defaultValue, Context context) {
         if (context == null) return null;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        return prefs.getString(key, defaultValue);
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+        return sharedpreferences.getString(key, defaultValue);
     }
+
     /**
      * ********************** to validate email field *****************************
      *
@@ -418,8 +422,8 @@ public class Utils {
      */
     public synchronized void saveValue(String key, boolean value, Context context) {
         if (context == null) return;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        SharedPreferences.Editor saveValue = prefs.edit();
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor saveValue = sharedpreferences.edit();
         saveValue.putBoolean(key, value);
         saveValue.apply();
     }
@@ -434,11 +438,11 @@ public class Utils {
      * @description To get the value from a preference file on the specified
      * key.
      */
-    public synchronized int getValue(String key, int defaultValue, Context context) {
-        if (context == null) return 0;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        return prefs.getInt(key, defaultValue);
-    }
+//    public synchronized int getValue(String key, int defaultValue, Context context) {
+//        if (context == null) return 0;
+//        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+//        return sharedpreferences.getInt(key, defaultValue);
+//    }
 
     /**
      * Gets value from shared preference.
@@ -450,11 +454,11 @@ public class Utils {
      * @description To get the value from a preference file on the specified
      * key.
      */
-    public synchronized long getValue(String key, long defaultValue, Context context) {
-        if (context == null) return 0l;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        return prefs.getLong(key, defaultValue);
-    }
+//    public synchronized long getValue(String key, long defaultValue, Context context) {
+//        if (context == null) return 0l;
+//        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+//        return sharedpreferences.getLong(key, defaultValue);
+//    }
 
 
     /**
@@ -466,8 +470,8 @@ public class Utils {
      */
     public synchronized void clearValueOfKey(Context context, String key) {
         if (context == null) return;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        SharedPreferences.Editor saveValue = prefs.edit();
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor saveValue = sharedpreferences.edit();
         saveValue.remove(key).apply();
     }
 
@@ -483,8 +487,8 @@ public class Utils {
      */
     public synchronized boolean getValue(String key, boolean defaultValue, Context context) {
         if (context == null) return false;
-        SharedPreferences prefs = new SharedPreferencesEncryption(context);
-        return prefs.getBoolean(key, defaultValue);
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+        return sharedpreferences.getBoolean(key, defaultValue);
     }
 
     /**
@@ -557,9 +561,25 @@ public class Utils {
     }
 
     public void showAlert(String message, Context context) {
-        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Alert")
+
+        if (mSweetDialog == null) {
+            mSweetDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
+            mSweetDialog.setCancelable(false);
+        }
+        else if(mSweetDialog.isShowing())
+        {
+            return;
+        }
+
+        mSweetDialog.setTitleText("Alert")
                 .setContentText(message)
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        mSweetDialog.dismiss();
+                    }
+                })
                 .show();
     }
 

@@ -114,7 +114,7 @@ public class PendingDetailsFragment extends BaseFragment {
             orderAcceptReject.setStoreId(1);
 
             if (orderData.getReadStatus() == 0) {
-                int storeId = Utils.getInstance().getValue(Constants.STORE_ID, 0, getActivity());
+                int storeId = Integer.parseInt(Utils.getInstance().getValue(Constants.STORE_ID, "0", getActivity()));
                 UpdateItemStatusRequest updateItemStatusRequest = new UpdateItemStatusRequest();
                 updateItemStatusRequest.setStoreId(storeId);
                 updateItemStatusRequest.setOrderId(orderData.getOrderId());

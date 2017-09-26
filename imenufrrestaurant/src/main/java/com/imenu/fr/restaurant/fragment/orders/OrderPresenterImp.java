@@ -1,6 +1,8 @@
 package com.imenu.fr.restaurant.fragment.orders;
 
 
+import android.util.Log;
+
 import com.imenu.fr.restaurant.api.model.Status;
 import com.imenu.fr.restaurant.api.model.devicetoken.UpdteTokenRequest;
 import com.imenu.fr.restaurant.api.model.order.OrderRequest;

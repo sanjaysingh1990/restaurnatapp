@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -121,6 +122,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_price"
                 app:srcCompat="@drawable/app_logo" />
+
+            <TextView
+                android:id="@+id/text_order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Order Status"
+                android:visibility="gone"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:layout_constraintTop_toBottomOf="@+id/txt_orderdate"
+                android:layout_marginRight="8dp" />
 
         </android.support.constraint.ConstraintLayout>
 

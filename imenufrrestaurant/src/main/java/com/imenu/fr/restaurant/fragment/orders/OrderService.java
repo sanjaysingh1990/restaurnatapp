@@ -26,7 +26,6 @@ public class OrderService {
     public OrderService(IOrderContract.OrderPresenter orderPresenter) {
         this.mOrderPresenter = orderPresenter;
     }
-
     public void getOrders(OrderRequest orderRequest) {
 
 
@@ -34,10 +33,12 @@ public class OrderService {
         loginResponseCall.enqueue(new Callback<OrderResponse>() {
             @Override
             public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+
                 if (response.isSuccessful()) {
                     mOrderPresenter.onSuccess(response.body());
 
                 } else {
+
                     mOrderPresenter.onApiError(APIHelper.getInstance().handleApiError(response.errorBody()));
                 }
             }

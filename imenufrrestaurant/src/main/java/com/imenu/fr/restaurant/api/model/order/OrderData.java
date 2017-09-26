@@ -45,6 +45,19 @@ public class OrderData implements Serializable {
     @Expose
     private List<OrderItem> items = null;
 
+
+    public Tookan getTookan() {
+        return tookan;
+    }
+
+    public void setTookan(Tookan tookan) {
+        this.tookan = tookan;
+    }
+
+    @SerializedName("tookan")
+    @Expose
+    private Tookan tookan;
+
     public int getReadStatus() {
         return readStatus;
     }
@@ -132,7 +145,7 @@ public class OrderData implements Serializable {
     }
 
     public String getTotalAmount() {
-        return Constants.EURO+totalAmount;
+        return Constants.EURO + totalAmount;
     }
 
     public void setTotalAmount(String totalAmount) {

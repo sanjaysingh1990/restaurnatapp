@@ -1,6 +1,7 @@
 package com.imenu.fr.restaurant.fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ public class BaseFragment extends Fragment {
     private FragmentActivity mActivity;
     private SweetAlertDialog mSweetAlertDialog;
     private SweetAlertDialog mSweetAlertDialog2;
+    private SweetAlertDialog mSweetDialog;
 
     private Dialog mProgressDialog;
 
@@ -123,6 +125,26 @@ public class BaseFragment extends Fragment {
                         sweetAlertDialog.dismiss();
                     }
                 }).show();
+    }
+    public void showSweetAlert(String message) {
+        if (mSweetDialog == null) {
+            mSweetDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE);
+            mSweetDialog.setCancelable(false);
+        }
+        else if(mSweetDialog.isShowing())
+        {
+            return;
+        }
+        mSweetDialog.setTitleText("Alert")
+                .setContentText(message)
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        mSweetDialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     /**

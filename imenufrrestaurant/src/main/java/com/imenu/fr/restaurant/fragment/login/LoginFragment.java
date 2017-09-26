@@ -132,7 +132,7 @@ public class LoginFragment extends BaseFragment implements ILoginContract.LoginV
 
     @Override
     public void showAlert(String message) {
-        Utils.getInstance().showAlert(message, getActivity());
+        showSweetAlert(message);
         enable();
 
     }

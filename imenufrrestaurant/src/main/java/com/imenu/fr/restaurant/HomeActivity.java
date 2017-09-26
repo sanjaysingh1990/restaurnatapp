@@ -55,7 +55,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     private OrderRequest orderRequest = new OrderRequest();
     private int mTotalNotification = 0;
     boolean mDoubleBackToExitPressedOnce = false;
-
+    private boolean isPullToRefresh=false;
     // UI
     private AHBottomNavigationViewPager viewPager;
     private AHBottomNavigation bottomNavigation;
@@ -141,6 +141,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshList(Integer position) {
         //   APIHelper.getInstance().cancelRequest(); //if in any tab request is pending cancel it
+        isPullToRefresh=true;
         sendRequest(position, 0);
 
     }
@@ -295,7 +296,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
             return;
         }
         ExtraFragment extraFragment;
-        int storeId = Utils.getInstance().getValue(Constants.STORE_ID, 0, this);
+        int storeId = Integer.parseInt(Utils.getInstance().getValue(Constants.STORE_ID, "0", this));
         switch (position) {
 
             case 0:
@@ -370,8 +371,8 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 break;
 
         }
-//        Gson gson = new Gson();
-//        Log.e("request", gson.toJson(orderRequest));
+       Gson gson = new Gson();
+        Log.e("request", gson.toJson(orderRequest));
     }
 
     @Override
@@ -389,7 +390,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     @Override
     public void onServerError() {
         showAlert(getResources().getString(R.string.failed_toconnnect_server));
-        showEmptyScreen(getResources().getString(R.string.no_internet_message));
+        showEmptyScreen(getResources().getString(R.string.no_data_found));
 
 
     }
@@ -397,12 +398,13 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     @Override
     public void onError(String message) {
         showAlert(message);
-        showEmptyScreen(getResources().getString(R.string.no_internet_message));
+        showEmptyScreen(getResources().getString(R.string.no_data_found));
 
     }
 
     @Override
     public void showAlert(String message) {
+
         Utils.getInstance().showAlert(message, this);
     }
 
@@ -423,6 +425,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
             case Constants.PENDING:
                 PendingFragment pendingFragment = (PendingFragment) adapter.getItem(0);
                 if (orderResponse.getData() != null) {
+                    isPullToRefresh=false;
                     pendingFragment.loadData(orderResponse.getData());
                     /***
                      ***************** to check data is available for load more or not ***************
@@ -437,13 +440,18 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                     showEmptyScreen(getResources().getString(R.string.no_data_found));
                     pendingFragment.removeLoadmore();
                     pendingFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        pendingFragment.clearList();
+                    }
                 }
 
                 break;
             case Constants.ACCEPTED:
                 AcceptedFragment acceptedFragment = (AcceptedFragment) adapter.getItem(1);
                 if (orderResponse.getData() != null) {
-
+                    isPullToRefresh=false;
                     acceptedFragment.loadData(orderResponse.getData());
                     /***
                      ***************** to check data is available for load more or not ***************
@@ -459,12 +467,18 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                     showEmptyScreen(getResources().getString(R.string.no_data_found));
                     acceptedFragment.removeLoadmore();
                     acceptedFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        acceptedFragment.clearList();
+                    }
                 }
 
                 break;
             case Constants.REJECTED:
                 extraFragment = (ExtraFragment) adapter.getItem(2);
                 if (orderResponse.getData() != null) {
+                    isPullToRefresh=false;
                     extraFragment.loadData(orderResponse.getData());
                     /***
                      ***************** to check data is available for load more or not ***************
@@ -480,11 +494,17 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                     showEmptyScreen(getResources().getString(R.string.no_data_found));
                     extraFragment.removeLoadmore();
                     extraFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        extraFragment.clearList();
+                    }
                 }
                 break;
             case Constants.DISPATCHED:
                 extraFragment = (ExtraFragment) adapter.getItem(3);
                 if (orderResponse.getData() != null) {
+                    isPullToRefresh=false;
                     extraFragment.loadData(orderResponse.getData());
                     /***
                      ***************** to check data is available for load more or not ***************
@@ -500,11 +520,17 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                     showEmptyScreen(getResources().getString(R.string.no_data_found));
                     extraFragment.removeLoadmore();
                     extraFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        extraFragment.clearList();
+                    }
                 }
                 break;
             case Constants.COMPLETED:
                 extraFragment = (ExtraFragment) adapter.getItem(4);
                 if (orderResponse.getData() != null) {
+                    isPullToRefresh=false;
                     extraFragment.loadData(orderResponse.getData());
                     /***
                      ***************** to check data is available for load more or not ***************
@@ -520,6 +546,11 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                     showEmptyScreen(getResources().getString(R.string.no_data_found));
                     extraFragment.removeLoadmore();
                     extraFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        extraFragment.clearList();
+                    }
 
                 }
                 break;
@@ -636,11 +667,12 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
         boolean status = Utils.getInstance().getValue(Constants.IS_DEVICE_REGISTERED, false, this);
         if (!status) {
             String devicetoken = FirebaseInstanceId.getInstance().getToken();
-            // Log.e("device token", devicetoken + "");
+             Log.e("device token", devicetoken + "");
             if (devicetoken != null) {
                 UpdteTokenRequest updteTokenRequest = new UpdteTokenRequest();
                 updteTokenRequest.setDeviceToken(devicetoken);
-                updteTokenRequest.setUserId(Utils.getInstance().getValue(Constants.USER_ID, 0, this));
+                int user_Id=Integer.valueOf(Utils.getInstance().getValue(Constants.USER_ID, "0", this));
+                updteTokenRequest.setUserId(user_Id);
                 presenterImp.updateDeviceToken(updteTokenRequest);
 
             }
@@ -748,7 +780,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
             return;
         }
         this.mDoubleBackToExitPressedOnce = true;
-        Utils.getInstance().showToast( this,getResources().getString(R.string.double_back_press));
+        Utils.getInstance().showToast(this, getResources().getString(R.string.double_back_press));
 
         new Handler().postDelayed(new Runnable() {
 
