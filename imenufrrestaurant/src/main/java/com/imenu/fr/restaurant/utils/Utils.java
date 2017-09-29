@@ -776,5 +776,13 @@ public class Utils {
         }
     }
 
+    public void clearSharedPreference(Context context)
+    {
+        if (context == null) return;
+        SharedPreferences sharedpreferences = context.getSharedPreferences(Constants.FILE, Context.MODE_PRIVATE);
+
+        sharedpreferences.edit().clear().commit();
+    }
+
 
 }

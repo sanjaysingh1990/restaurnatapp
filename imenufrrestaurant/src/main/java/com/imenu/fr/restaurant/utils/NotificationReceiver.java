@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -20,7 +22,11 @@ import com.google.gson.Gson;
 import com.imenu.fr.restaurant.HomeActivity;
 import com.imenu.fr.restaurant.R;
 import com.imenu.fr.restaurant.activity.DetailsActivity;
+import com.imenu.fr.restaurant.app.Imenufr;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -40,6 +46,8 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
     private int mOrderId;
     private int mOrderStatus;
     private int NOTIID;
+    public static MediaPlayer mPlayer;
+
     public static String intentToString(Intent intent) {
         if (intent == null)
             return "";
@@ -81,6 +89,7 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
 
 
         }
+        Log.e("orderid,orderstatus",mOrderId+","+mOrderStatus);
 
 
         showNotificaiton(context);
@@ -141,6 +150,86 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
 
         //to abort default notificaiton receiver of firebase
         abortBroadcast();
+
+        switch (mOrderStatus)
+        {
+            case Constants.PENDING:
+                EventBus.getDefault().post(1d); //refresh the pending tab
+            break;
+            case Constants.REJECTED:
+                EventBus.getDefault().post(1d); //refresh the pending tab
+             break;
+            case Constants.ACCEPTED:
+                EventBus.getDefault().post(1d); //refresh the pending tab
+                break;
+            case Constants.DISPATCHED:
+                EventBus.getDefault().post(3d); //refresh the pending tab
+            break;
+            case Constants.COMPLETED:
+                EventBus.getDefault().post(4d); //refresh the pending tab
+            break;
+            case Constants.EXPIRED:
+                EventBus.getDefault().post(1d); //refresh the pending tab
+                break;
+            default:
+
+        }
+        playMusic(context);
+    }
+
+    private void playMusic(Context context)
+    {
+        try {
+
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            playSound(context,notification);
+
+        } catch (Exception e) {
+            Log.e("error1",e.getMessage()+"");
+        }
+    }
+    private void playSound(Context context,Uri alert){
+
+        try{
+
+            if(mPlayer!=null)
+            {
+                mPlayer.setLooping(false);
+                mPlayer.pause();
+                mPlayer.stop();
+                mPlayer.release();
+                mPlayer=null;
+            }
+
+            mPlayer=new MediaPlayer();
+            mPlayer.setDataSource(context,alert);
+            final AudioManager am=(AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+            if(am.getStreamVolume(AudioManager.STREAM_ALARM)!=0)
+            {
+                mPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+                mPlayer.prepare();
+                mPlayer.setLooping(true);
+                mPlayer.start();
+            }
+            else
+            {
+                mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mPlayer.prepare();
+                mPlayer.setLooping(true);
+                mPlayer.start();
+            }
+			/*mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+				@Override
+				public void onPrepared(MediaPlayer mediaPlayer) {
+					mediaPlayer.start();
+				}
+			});*/
+
+        }
+        catch(IOException e)
+        {
+            Log.e("AlaramReciever", "no audio file");
+        }
     }
 
 

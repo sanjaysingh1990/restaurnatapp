@@ -102,7 +102,13 @@ public class PendingDetailsFragment extends BaseFragment {
             address.setBuyerName(orderData.getBuyerName());
             address.setBuyerAddress(orderData.getBuyerAddress());
             address.setTotalPrice(orderData.getTotalAmount());
-            String deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+            String deliveryDateTime;
+            if (orderData.getOrdetTime() != null)
+                deliveryDateTime = orderData.getOrdetTime();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+            else
+                deliveryDateTime = orderData.getCreatedAt();
+            address.setDeliveryDateTime(deliveryDateTime);
+
             address.setDeliveryDateTime(deliveryDateTime);
             address.setPhoneNo(orderData.getBuyerPhoneNo());
             mItemList.add(address);

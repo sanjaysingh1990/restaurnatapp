@@ -79,7 +79,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ViewHolderPending viewHolderPending = (ViewHolderPending) holder;
                 viewHolderPending.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
                 viewHolderPending.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
-                deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderPending.mTextOrderDateTime.setText(deliveryDateTime);
                 /**
                  * ******************* to check order read or not *************
@@ -97,7 +97,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ViewHolderAccepted viewHolderAccepted = (ViewHolderAccepted) holder;
                 viewHolderAccepted.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
                 viewHolderAccepted.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
-                deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderAccepted.mTextOrderDateTime.setText(deliveryDateTime);
 
                 break;
@@ -105,7 +105,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 viewHolderOther = (ViewHolderOther) holder;
                 viewHolderOther.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
                 viewHolderOther.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
-                deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderOther.mTextOrderDateTime.setText(deliveryDateTime);
                 viewHolderOther.mTextStatusIndicator.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_icon_order_rejected, 0, 0);
                 viewHolderOther.mTextStatusIndicator.setText("ORDER REJECTED");
@@ -115,7 +115,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 viewHolderOther = (ViewHolderOther) holder;
                 viewHolderOther.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
                 viewHolderOther.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
-                deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderOther.mTextOrderDateTime.setText(deliveryDateTime);
                 viewHolderOther.mTextOrderStatus.setVisibility(View.VISIBLE);
                 viewHolderOther.mTextStatusIndicator.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_icon_order_dispatched, 0, 0);
@@ -126,7 +126,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 viewHolderOther = (ViewHolderOther) holder;
                 viewHolderOther.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
                 viewHolderOther.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
-                deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
                 viewHolderOther.mTextOrderDateTime.setText(deliveryDateTime);
                 viewHolderOther.mTextStatusIndicator.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_icon_order_completed, 0, 0);
                 viewHolderOther.mTextStatusIndicator.setText("ORDER COMPLETED");

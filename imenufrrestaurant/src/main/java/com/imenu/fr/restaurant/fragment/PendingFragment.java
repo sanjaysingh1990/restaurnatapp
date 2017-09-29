@@ -313,10 +313,12 @@ public class PendingFragment extends BaseFragment {
     }
 
     public void updateStatus() {
-        OrderData orderData = itemsData.get(mPosition);
-        orderData.setReadStatus(1);
-        adapter.notifyItemChanged(mPosition);
-    }
+        if(mPosition>=0) {
+            OrderData orderData = itemsData.get(mPosition);
+            orderData.setReadStatus(1);
+            adapter.notifyItemChanged(mPosition);
+        }
+        }
 
     /**
      * Refresh

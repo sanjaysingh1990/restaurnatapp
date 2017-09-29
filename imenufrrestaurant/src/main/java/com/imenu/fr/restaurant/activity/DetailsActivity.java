@@ -19,6 +19,7 @@ import com.imenu.fr.restaurant.fragment.details.PendingDetailsFragment;
 import com.imenu.fr.restaurant.fragment.orders.IOrderContract;
 import com.imenu.fr.restaurant.fragment.orders.OrderPresenterImp;
 import com.imenu.fr.restaurant.utils.Constants;
+import com.imenu.fr.restaurant.utils.NotificationReceiver;
 import com.imenu.fr.restaurant.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +38,7 @@ public class DetailsActivity extends BaseActivity implements IOrderContract.Orde
         showDetails();
     }
 
+
     void showDetails() {
         switch (getIntent().getExtras().getInt(Constants.DETAIL_VIEW)) {
             case Constants.PENDING_ORDER_DETAILS:
@@ -49,6 +51,7 @@ public class DetailsActivity extends BaseActivity implements IOrderContract.Orde
                 break;
             default:
                 int orderId = getIntent().getIntExtra(Constants.ORDER_ID, 0);
+
                 presenterImp.getOrderDetails(orderId);
                 fromNotification = true;
 
@@ -67,6 +70,19 @@ public class DetailsActivity extends BaseActivity implements IOrderContract.Orde
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(NotificationReceiver.mPlayer!=null)
+        {
+            NotificationReceiver.mPlayer.setLooping(false);
+            NotificationReceiver.mPlayer.pause();
+            NotificationReceiver.mPlayer.stop();
+            NotificationReceiver.mPlayer.release();
+            NotificationReceiver. mPlayer=null;
+        }
+        dismissProgress();
+    }
 
     @Override
     public void showProgressDialog() {
@@ -107,7 +123,27 @@ public class DetailsActivity extends BaseActivity implements IOrderContract.Orde
                 intent.putExtra(Constants.DETAIL_HEADING, getResources().getString(R.string.pending));
                 addFragment(PendingDetailsFragment.newInstance());
             } else if (mOrderStatus == Constants.COMPLETED) {
-                intent.putExtra(Constants.DETAIL_HEADING, getResources().getString(R.string.pending));
+                intent.putExtra(Constants.DETAIL_HEADING,"Completed");
+                addFragment(AcceptedDetailsFragment.newInstance());
+
+            }
+            else if (mOrderStatus == Constants.REJECTED) {
+                intent.putExtra(Constants.DETAIL_HEADING,"Rejected");
+                addFragment(AcceptedDetailsFragment.newInstance());
+
+            }
+            else if (mOrderStatus == Constants.ACCEPTED) {
+                intent.putExtra(Constants.DETAIL_HEADING,"Accepted");
+                addFragment(AcceptedDetailsFragment.newInstance());
+
+            }
+            else if (mOrderStatus == Constants.DISPATCHED) {
+                intent.putExtra(Constants.DETAIL_HEADING,"Dispatched");
+                addFragment(AcceptedDetailsFragment.newInstance());
+
+            }
+            else if (mOrderStatus == Constants.EXPIRED) {
+                intent.putExtra(Constants.DETAIL_HEADING,"Expired");
                 addFragment(AcceptedDetailsFragment.newInstance());
 
             }
@@ -140,8 +176,12 @@ public class DetailsActivity extends BaseActivity implements IOrderContract.Orde
             } else if (mOrderStatus == Constants.PENDING) {
                 EventBus.getDefault().post(1d); //refresh the pending tab
 
-            } else if (mOrderStatus == Constants.COMPLETED) {
-                EventBus.getDefault().post(2d); //refresh the completed tab
+            }
+            else if (mOrderStatus == Constants.ACCEPTED) {
+                EventBus.getDefault().post(1d); //refresh the pending tab
+            }
+            else if (mOrderStatus == Constants.COMPLETED) {
+                EventBus.getDefault().post(4d); //refresh the completed tab
 
             }
 

@@ -31,6 +31,7 @@ public class Constants {
     public static final int REJECTED = 4;
     public static final int DISPATCHED = 6;
     public static final int COMPLETED = 7;
+    public static final int EXPIRED = 8;
     public static final int LIMIT=8;
     public static final int LOADER=10;
 

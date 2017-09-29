@@ -45,6 +45,17 @@ public class OrderData implements Serializable {
     @Expose
     private List<OrderItem> items = null;
 
+    public String getOrdetTime() {
+        return ordetTime;
+    }
+
+    public void setOrdetTime(String ordetTime) {
+        this.ordetTime = ordetTime;
+    }
+
+    @SerializedName("orderTime")
+    @Expose
+    private String ordetTime;
 
     public Tookan getTookan() {
         return tookan;

@@ -86,8 +86,8 @@ public class AcceptedDetailsFragment extends BaseFragment {
             for (OrderItem dataitem : orderData.getItems()) {
                 Item item = new Item();
                 item.setItemName(dataitem.getItemName());
-                item.setItemPrice(Constants.EURO+formatter.format(dataitem.getItemPrice()));
-                item.setItemUnitPrice(Constants.EURO+formatter.format(dataitem.getUnitPrice()));
+                item.setItemPrice(Constants.EURO + formatter.format(dataitem.getItemPrice()));
+                item.setItemUnitPrice(Constants.EURO + formatter.format(dataitem.getUnitPrice()));
                 item.setItemQuantity(String.valueOf(dataitem.getQuantity()));
                 mItemList.add(item);
             }
@@ -96,7 +96,11 @@ public class AcceptedDetailsFragment extends BaseFragment {
             address.setBuyerName(orderData.getBuyerName());
             address.setBuyerAddress(orderData.getBuyerAddress());
             address.setTotalPrice(orderData.getTotalAmount());
-            String deliveryDateTime = orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+            String deliveryDateTime;
+            if (orderData.getOrdetTime() != null)
+                deliveryDateTime = orderData.getOrdetTime();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+            else
+                deliveryDateTime = orderData.getCreatedAt();
             address.setDeliveryDateTime(deliveryDateTime);
             address.setPhoneNo(orderData.getBuyerPhoneNo());
             mItemList.add(address);
@@ -109,9 +113,9 @@ public class AcceptedDetailsFragment extends BaseFragment {
         }
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra(Constants.FROM)) {
-           // binding.btnAccept.setVisibility(View.VISIBLE);
+            // binding.btnAccept.setVisibility(View.VISIBLE);
         } else {
-           // binding.btnAccept.setVisibility(View.GONE);
+            // binding.btnAccept.setVisibility(View.GONE);
 
         }
     }

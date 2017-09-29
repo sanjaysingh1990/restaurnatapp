@@ -36,6 +36,7 @@ import com.imenu.fr.restaurant.fragment.PendingFragment;
 import com.imenu.fr.restaurant.fragment.orders.IOrderContract;
 import com.imenu.fr.restaurant.fragment.orders.OrderPresenterImp;
 import com.imenu.fr.restaurant.utils.Constants;
+import com.imenu.fr.restaurant.utils.NotificationReceiver;
 import com.imenu.fr.restaurant.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,6 +81,29 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
         initUI();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+       stopSound();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopSound();
+    }
+
+    private void stopSound()
+    {
+        if(NotificationReceiver.mPlayer!=null)
+        {
+            NotificationReceiver.mPlayer.setLooping(false);
+            NotificationReceiver.mPlayer.pause();
+            NotificationReceiver.mPlayer.stop();
+            NotificationReceiver.mPlayer.release();
+            NotificationReceiver. mPlayer=null;
+        }
+    }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
@@ -87,7 +111,9 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
 
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                Utils.getInstance().clearValueOfKey(this, Constants.LOGGED_IN);
+               // Utils.getInstance().clearValueOfKey(this, Constants.LOGGED_IN);
+                Utils.getInstance().clearSharedPreference(this);
+
                 Utils.getInstance().saveValue(Constants.LOGGED_OUT, true, this);
                 this.finish();
                 return true;
@@ -132,10 +158,24 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
             PendingFragment pendingFragment = (PendingFragment) adapter.getItem(0);
             pendingFragment.startPullToRefresh();
         } else if (type == 2) {
+            extraFragment = (ExtraFragment) adapter.getItem(2);
+            extraFragment.startPullToRefresh();
+
+        }
+        else if (type == 3) {
+            extraFragment = (ExtraFragment) adapter.getItem(3);
+            extraFragment.startPullToRefresh();
+
+        }
+        else if (type == 4) {
             extraFragment = (ExtraFragment) adapter.getItem(4);
             extraFragment.startPullToRefresh();
 
         }
+
+
+
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -415,9 +455,15 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
          */
 
         int currentpage = viewPager.getCurrentItem();
-        if (currentpage == 0 && orderResponse.getCount() > 0) {
+        if ((currentpage == 0)&&(orderResponse.getData()!=null)) {
             mTotalNotification = orderResponse.getCount();
             updateBatch(orderResponse.getCount());
+        }
+        else
+        {
+            mTotalNotification=0;
+
+            updateBatch(0);
         }
         ExtraFragment extraFragment = null;
         hideEmptyScreen(); //firt hide empty screen
@@ -556,9 +602,11 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 break;
 
         }
+        showEmptyScreen("NO DATA FOUND!"); //to manage autorefresh udpate
     }
 
     private void updateBatch(int batchCount) {
+        Log.e("count",batchCount+"");
         if (batchCount > 0)
             bottomNavigation.setNotification(String.valueOf(batchCount), 0);
         else
@@ -792,6 +840,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
 
     }
+
 
 
 }

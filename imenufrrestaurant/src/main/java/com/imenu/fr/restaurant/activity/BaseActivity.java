@@ -43,11 +43,17 @@ public abstract class BaseActivity extends AppCompatActivity {
      * show Loader view
      */
     public synchronized void showProgress() {
+
+
         if (mProgressDialog == null) {
             mProgressDialog = new Dialog(this, android.R.style.Theme_Translucent);
             mProgressDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
             mProgressDialog.setContentView(R.layout.loader);
             mProgressDialog.setCancelable(false);
+        }
+        else if(mProgressDialog.isShowing())
+        {
+            mProgressDialog.dismiss();
         }
         mProgressDialog.show();
     }
@@ -57,7 +63,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public synchronized void hideProgress() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
+
             mProgressDialog.dismiss();
         }
+    }
+    public synchronized void dismissProgress()
+    {
+        if ((mProgressDialog != null) && mProgressDialog.isShowing())
+            mProgressDialog.dismiss();
+        mProgressDialog= null;
     }
 }
