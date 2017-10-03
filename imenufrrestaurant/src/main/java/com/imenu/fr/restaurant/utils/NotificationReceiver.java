@@ -85,11 +85,11 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
 
            // Log.e("orderid", data.getStringExtra("order_id") + "");
         } catch (Exception ex) {
-            Log.e("pushdata", ex.getMessage() + "");
+            //Log.e("pushdata", ex.getMessage() + "");
 
 
         }
-        Log.e("orderid,orderstatus",mOrderId+","+mOrderStatus);
+        //Log.e("orderid,orderstatus",mOrderId+","+mOrderStatus);
 
 
         showNotificaiton(context);
@@ -228,7 +228,7 @@ public class NotificationReceiver extends WakefulBroadcastReceiver {
         }
         catch(IOException e)
         {
-            Log.e("AlaramReciever", "no audio file");
+            //Log.e("AlaramReciever", "no audio file");
         }
     }
 

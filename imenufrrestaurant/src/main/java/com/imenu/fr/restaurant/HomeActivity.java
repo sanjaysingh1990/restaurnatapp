@@ -412,7 +412,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
         }
        Gson gson = new Gson();
-        Log.e("request", gson.toJson(orderRequest));
+        //Log.e("request", gson.toJson(orderRequest));
     }
 
     @Override
@@ -606,7 +606,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
     }
 
     private void updateBatch(int batchCount) {
-        Log.e("count",batchCount+"");
+        //Log.e("count",batchCount+"");
         if (batchCount > 0)
             bottomNavigation.setNotification(String.valueOf(batchCount), 0);
         else
@@ -715,7 +715,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
         boolean status = Utils.getInstance().getValue(Constants.IS_DEVICE_REGISTERED, false, this);
         if (!status) {
             String devicetoken = FirebaseInstanceId.getInstance().getToken();
-             Log.e("device token", devicetoken + "");
+             //Log.e("device token", devicetoken + "");
             if (devicetoken != null) {
                 UpdteTokenRequest updteTokenRequest = new UpdteTokenRequest();
                 updteTokenRequest.setDeviceToken(devicetoken);
