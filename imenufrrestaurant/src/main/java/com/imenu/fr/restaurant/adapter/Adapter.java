@@ -58,9 +58,14 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case Constants.COMPLETED:
                 View view5 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_else, parent, false);
                 return new ViewHolderOther(view5);
+            case Constants.EXPIRED:
+                View view6 = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_else, parent, false);
+                return new ViewHolderOther(view6);
+
             case Constants.LOADER:
-                View view6 = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_loadmore, parent, false);
-                return new ViewHolderLoader(view6);
+
+                View view7 = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_loadmore, parent, false);
+                return new ViewHolderLoader(view7);
 
         }
         return viewHolder;
@@ -133,6 +138,17 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 break;
 
+            case Constants.EXPIRED:
+                viewHolderOther = (ViewHolderOther) holder;
+                viewHolderOther.mTextOrderNo.setText(String.valueOf(orderData.getOrderId()));
+                viewHolderOther.mTextPrice.setText(String.valueOf(orderData.getTotalAmount()));
+                deliveryDateTime = orderData.getCreatedAt();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
+                viewHolderOther.mTextOrderDateTime.setText(deliveryDateTime);
+                viewHolderOther.mTextStatusIndicator.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_icon_item_expired, 0, 0);
+                viewHolderOther.mTextStatusIndicator.setText("ORDER EXPIRED");
+
+                break;
+
         }
     }
 
@@ -148,6 +164,9 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return Constants.DISPATCHED;
         } else if (mDataset.get(position).getDataType() == Constants.COMPLETED) {
             return Constants.COMPLETED;
+        }
+        else if (mDataset.get(position).getDataType() == Constants.EXPIRED) {
+            return Constants.EXPIRED;
         }
         else if (mDataset.get(position).getDataType() == Constants.LOADER) {
             return Constants.LOADER;

@@ -19,5 +19,8 @@
     <item
         android:icon="@drawable/ic_bottom_bar_complete_icon"
         android:title="@string/menu_5" />
+    <item
+        android:icon="@drawable/ic_navigationbar_item_expired"
+        android:title="@string/menu_6" />
 
 </menu>

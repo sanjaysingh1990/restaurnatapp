@@ -5,12 +5,15 @@
     <string name="tab_3">Label 3</string>
     <string name="tab_4">Label 4</string>
     <string name="tab_5">Label 5</string>
+    <string name="tab_6">Label 6</string>
+
 
     <string name="menu_1">Pending</string>
     <string name="menu_2">Accepted</string>
     <string name="menu_3">Rejected</string>
     <string name="menu_4">Dispatched</string>
     <string name="menu_5">Completed</string>
+    <string name="menu_6">Expired</string>
 
     <!-- sing in -->
     <string name="Sign_in">Sign in</string>

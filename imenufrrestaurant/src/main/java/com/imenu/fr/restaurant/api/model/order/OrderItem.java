@@ -5,97 +5,111 @@ import com.google.gson.annotations.SerializedName;
 import com.imenu.fr.restaurant.utils.Constants;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class OrderItem implements Serializable{
+public class OrderItem implements Serializable {
 
-@SerializedName("product_id")
-@Expose
-private int productId;
-@SerializedName("item_name")
-@Expose
-private String itemName;
-@SerializedName("unit_price")
-@Expose
-private float unitPrice;
-@SerializedName("quantity")
-@Expose
-private int quantity;
-@SerializedName("item_desc")
-@Expose
-private String itemDesc;
-@SerializedName("item_img")
-@Expose
-private String itemImg;
-@SerializedName("item_price")
-@Expose
-private float itemPrice;
-@SerializedName("order_id")
-@Expose
-private String orderId;
+    @SerializedName("product_id")
+    @Expose
+    private int productId;
+    @SerializedName("item_name")
+    @Expose
+    private String itemName;
+    @SerializedName("unit_price")
+    @Expose
+    private float unitPrice;
+    @SerializedName("quantity")
+    @Expose
+    private int quantity;
+    @SerializedName("item_desc")
+    @Expose
+    private String itemDesc;
+    @SerializedName("item_img")
+    @Expose
+    private String itemImg;
+    @SerializedName("item_price")
+    @Expose
+    private float itemPrice;
+    @SerializedName("order_id")
+    @Expose
+    private String orderId;
 
-public int getProductId() {
-return productId;
-}
+    public List<Addon> getAddons() {
+        return addons;
+    }
 
-public void setProductId(int productId) {
-this.productId = productId;
-}
+    public void setAddons(List<Addon> addons) {
+        this.addons = addons;
+    }
 
-public String getItemName() {
-return itemName;
-}
+    @SerializedName("addons")
+    @Expose
+    private List<Addon> addons = null;
 
-public void setItemName(String itemName) {
-this.itemName = itemName;
-}
 
-public float getUnitPrice() {
-return unitPrice;
-}
+    public int getProductId() {
+        return productId;
+    }
 
-public void setUnitPrice(float unitPrice) {
-this.unitPrice = unitPrice;
-}
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
-public int getQuantity() {
-return quantity;
-}
+    public String getItemName() {
+        return itemName;
+    }
 
-public void setQuantity(int quantity) {
-this.quantity = quantity;
-}
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
 
-public String getItemDesc() {
-return itemDesc;
-}
+    public float getUnitPrice() {
+        return unitPrice;
+    }
 
-public void setItemDesc(String itemDesc) {
-this.itemDesc = itemDesc;
-}
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
-public String getItemImg() {
-return itemImg;
-}
+    public int getQuantity() {
+        return quantity;
+    }
 
-public void setItemImg(String itemImg) {
-this.itemImg = itemImg;
-}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-public float getItemPrice() {
-return itemPrice;
-}
+    public String getItemDesc() {
+        return itemDesc;
+    }
 
-public void setItemPrice(float itemPrice) {
-this.itemPrice = itemPrice;
-}
+    public void setItemDesc(String itemDesc) {
+        this.itemDesc = itemDesc;
+    }
 
-public String getOrderId() {
-return orderId;
-}
+    public String getItemImg() {
+        return itemImg;
+    }
 
-public void setOrderId(String orderId) {
-this.orderId = orderId;
-}
+    public void setItemImg(String itemImg) {
+        this.itemImg = itemImg;
+    }
+
+    public float getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(float itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
 
 }

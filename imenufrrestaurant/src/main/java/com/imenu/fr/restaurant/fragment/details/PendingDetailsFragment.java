@@ -95,6 +95,7 @@ public class PendingDetailsFragment extends BaseFragment {
                 item.setItemPrice(Constants.EURO+formatter.format(dataitem.getItemPrice()));
                 item.setItemUnitPrice(Constants.EURO+formatter.format(dataitem.getUnitPrice()));
                 item.setItemQuantity(String.valueOf(dataitem.getQuantity()));
+                item.setAddonList(dataitem.getAddons());
                 mItemList.add(item);
             }
             //add address

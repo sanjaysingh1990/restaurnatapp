@@ -216,6 +216,9 @@ public class ExtraFragment extends BaseFragment {
                 orderData.setDataType(Constants.REJECTED);
             else if (getArguments().getInt("index") == 4)
                 orderData.setDataType(Constants.COMPLETED);
+            else if (getArguments().getInt("index") == 5)
+                orderData.setDataType(Constants.EXPIRED);
+
 
             itemsData.add(orderData);
 

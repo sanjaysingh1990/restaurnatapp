@@ -3,6 +3,7 @@ package com.imenu.fr.restaurant.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.imenu.fr.restaurant.R;
+import com.imenu.fr.restaurant.api.model.order.Addon;
 import com.imenu.fr.restaurant.datatypes.Address;
 import com.imenu.fr.restaurant.datatypes.Item;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +28,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     private final int ORDER_ITEM = 1;
+
     private final int ADDRESS = 2;
     private List<Object> itemList;
     private Activity mActivity;
@@ -65,6 +71,25 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 itemHolder.txtItemUnitPrice.setText(item.getItemUnitPrice());
                 String quantity = "Quantity : " + item.getItemQuantity();
                 itemHolder.txtItemQuantity.setText(quantity);
+                //show list of addons
+
+                /**
+                 **************** to show and hide addon heading **************
+                 */
+                if(item.getAddonList()!=null&&item.getAddonList().size()>0)
+                {
+                    itemHolder.mTextHeadingAddon.setVisibility(View.VISIBLE);
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(mActivity);
+                    itemHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+
+                    OrderAddonsAdapter addonsAdapter=new OrderAddonsAdapter(item.getAddonList());
+                    itemHolder.mRecyclerView.setAdapter(addonsAdapter);
+                }
+                else
+                {
+                    itemHolder.mTextHeadingAddon.setVisibility(View.GONE);
+
+                }
                 break;
             case ADDRESS:
                 AddressHolder addressHolder = (AddressHolder) viewHolder;
@@ -99,6 +124,8 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private TextView txtItemQuantity;
         private TextView txtItemPrice;
         private TextView txtItemUnitPrice;
+        private RecyclerView mRecyclerView;
+        private TextView mTextHeadingAddon;
 
         ItemHolder(View view) {
             super(view);
@@ -106,6 +133,8 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             txtItemQuantity = (TextView) view.findViewById(R.id.txt_quantity);
             txtItemPrice = (TextView) view.findViewById(R.id.txt_price);
             txtItemUnitPrice = (TextView) view.findViewById(R.id.txt_unit_price);
+            mRecyclerView= (RecyclerView) view.findViewById(R.id.recycler_view);
+            mTextHeadingAddon= (TextView) view.findViewById(R.id.text_heading_addons);
         }
 
 

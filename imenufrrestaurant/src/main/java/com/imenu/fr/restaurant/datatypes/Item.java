@@ -1,5 +1,9 @@
 package com.imenu.fr.restaurant.datatypes;
 
+import com.imenu.fr.restaurant.api.model.order.Addon;
+
+import java.util.List;
+
 /**
  * Created by android on 28/8/17.
  */
@@ -9,6 +13,16 @@ public class Item {
     private String itemQuantity;
     private String itemUnitPrice;
     private String itemPrice;
+
+    public List<Addon> getAddonList() {
+        return addonList;
+    }
+
+    public void setAddonList(List<Addon> addonList) {
+        this.addonList = addonList;
+    }
+
+    private List<Addon> addonList;
 
     public String getItemName() {
         return itemName;

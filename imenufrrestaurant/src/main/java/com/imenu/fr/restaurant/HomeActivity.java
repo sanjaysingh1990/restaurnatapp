@@ -172,7 +172,11 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
             extraFragment.startPullToRefresh();
 
         }
+        else if (type == 5) {
+            extraFragment = (ExtraFragment) adapter.getItem(5);
+            extraFragment.startPullToRefresh();
 
+        }
 
 
 
@@ -299,7 +303,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
         });
 
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(5);
         adapter = new DemoViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         currentFragment = adapter.getCurrentFragment();
@@ -410,9 +414,23 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 }
                 break;
 
+            case 5:
+                extraFragment = (ExtraFragment) adapter.getItem(5);
+                if (!extraFragment.isDataLoaded) {
+                    orderRequest.setStore_id(storeId);
+                    orderRequest.setStatus(Constants.COMPLETED);
+                    orderRequest.setLimit(Constants.LIMIT);
+                    orderRequest.setOffset(offset);
+                    presenterImp.requestData(orderRequest);
+                } else {
+                    hideProgressDialog();
+                    showEmptyScreen(getResources().getString(R.string.no_data_found));
+
+                }
+                break;
         }
        Gson gson = new Gson();
-        //Log.e("request", gson.toJson(orderRequest));
+        Log.e("request", gson.toJson(orderRequest));
     }
 
     @Override
@@ -600,6 +618,33 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
 
                 }
                 break;
+            case Constants.EXPIRED:
+                extraFragment = (ExtraFragment) adapter.getItem(5);
+                if (orderResponse.getData() != null) {
+                    isPullToRefresh=false;
+                    extraFragment.loadData(orderResponse.getData());
+                    /***
+                     ***************** to check data is available for load more or not ***************
+                     */
+
+                    if (orderResponse.getData().size() < Constants.LIMIT) {
+                        extraFragment.mNoMoreLoad = true;
+                    } else {
+                        extraFragment.mNoMoreLoad = false;
+
+                    }
+                } else {
+                    showEmptyScreen(getResources().getString(R.string.no_data_found));
+                    extraFragment.removeLoadmore();
+                    extraFragment.isDataLoaded = true;
+                    if(isPullToRefresh)
+                    {
+                        isPullToRefresh=false;
+                        extraFragment.clearList();
+                    }
+
+                }
+                break;
 
         }
         showEmptyScreen("NO DATA FOUND!"); //to manage autorefresh udpate
@@ -645,6 +690,11 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 break;
             case 4:
                 extraFragment = (ExtraFragment) adapter.getItem(4);
+                extraFragment.hidePullToRefresh();
+
+                break;
+            case 5:
+                extraFragment = (ExtraFragment) adapter.getItem(5);
                 extraFragment.hidePullToRefresh();
 
                 break;
@@ -792,6 +842,20 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 break;
             case 4:
                 extraFragment = (ExtraFragment) adapter.getItem(4);
+
+                if (extraFragment.itemsData.size() == 0) {
+                    show(message);
+                }
+                binding.emptyScreenLayout.btnRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        extraFragment.startPullToRefresh();
+                    }
+                });
+                break;
+
+            case 5:
+                extraFragment = (ExtraFragment) adapter.getItem(5);
 
                 if (extraFragment.itemsData.size() == 0) {
                     show(message);
