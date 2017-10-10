@@ -9,6 +9,16 @@ public class Address {
     private String buyerAddress;
     private String deliveryDateTime;
     private String totalPrice;
+
+    public String getDeliveryCharges() {
+        return deliveryCharges;
+    }
+
+    public void setDeliveryCharges(String deliveryCharges) {
+        this.deliveryCharges = deliveryCharges;
+    }
+
+    private String deliveryCharges;
     private String phoneNo;
 
     public String getBuyerName() {

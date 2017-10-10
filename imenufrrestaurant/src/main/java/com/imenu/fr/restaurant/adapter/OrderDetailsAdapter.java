@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.imenu.fr.restaurant.R;
 import com.imenu.fr.restaurant.api.model.order.Addon;
 import com.imenu.fr.restaurant.datatypes.Address;
 import com.imenu.fr.restaurant.datatypes.Item;
+import com.imenu.fr.restaurant.utils.Constants;
 
 import org.w3c.dom.Text;
 
@@ -68,6 +70,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 Item item = (Item) itemList.get(position);
                 itemHolder.txtItemName.setText(item.getItemName());
                 itemHolder.txtItemPrice.setText(item.getItemPrice());
+
                 itemHolder.txtItemUnitPrice.setText(item.getItemUnitPrice());
                 String quantity = "Quantity : " + item.getItemQuantity();
                 itemHolder.txtItemQuantity.setText(quantity);
@@ -95,6 +98,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 AddressHolder addressHolder = (AddressHolder) viewHolder;
                 Address address = (Address) itemList.get(position);
                 addressHolder.txtBuyerName.setText(address.getBuyerName());
+                addressHolder.txtDeliveryCharges.setText(address.getDeliveryCharges());
                 addressHolder.txtBuyerAddress.setText(address.getBuyerAddress());
                 addressHolder.txtOrderPrice.setText(address.getTotalPrice());
                 addressHolder.txtPhoneNo.setText(address.getPhoneNo());
@@ -146,6 +150,8 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private TextView txtOrderPrice;
         private TextView txtPhoneNo;
         private TextView txtDeliveryDateTime;
+        private TextView txtDeliveryCharges;
+
 
 
         AddressHolder(View view) {
@@ -155,6 +161,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             txtOrderPrice = (TextView) view.findViewById(R.id.txt_price);
             txtPhoneNo = (TextView) view.findViewById(R.id.text_phone_no);
             txtDeliveryDateTime = (TextView) view.findViewById(R.id.text_delivery_datetime);
+            txtDeliveryCharges = (TextView) view.findViewById(R.id.txt_charges);
             txtPhoneNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

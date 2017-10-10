@@ -92,7 +92,8 @@ public class PendingDetailsFragment extends BaseFragment {
             for (OrderItem dataitem : orderData.getItems()) {
                 Item item = new Item();
                 item.setItemName(dataitem.getItemName());
-                item.setItemPrice(Constants.EURO+formatter.format(dataitem.getItemPrice()));
+                Float totalItemPrice=(dataitem.getQuantity()*dataitem.getUnitPrice()*1.0f);
+                item.setItemPrice(Constants.EURO+formatter.format(totalItemPrice));
                 item.setItemUnitPrice(Constants.EURO+formatter.format(dataitem.getUnitPrice()));
                 item.setItemQuantity(String.valueOf(dataitem.getQuantity()));
                 item.setAddonList(dataitem.getAddons());
@@ -103,6 +104,8 @@ public class PendingDetailsFragment extends BaseFragment {
             address.setBuyerName(orderData.getBuyerName());
             address.setBuyerAddress(orderData.getBuyerAddress());
             address.setTotalPrice(orderData.getTotalAmount());
+            address.setDeliveryCharges(Constants.EURO+orderData.getDeliveryCharges());
+
             String deliveryDateTime;
             if (orderData.getOrdetTime() != null)
                 deliveryDateTime = orderData.getOrdetTime();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();

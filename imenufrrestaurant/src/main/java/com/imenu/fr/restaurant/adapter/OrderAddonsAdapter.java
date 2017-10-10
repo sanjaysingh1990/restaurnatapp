@@ -20,7 +20,6 @@ import java.util.List;
 public class OrderAddonsAdapter extends RecyclerView.Adapter<OrderAddonsAdapter.ItemHolder> {
 
 
-
     private List<Addon> itemList;
 
     public OrderAddonsAdapter(List<Addon> items) {
@@ -44,10 +43,17 @@ public class OrderAddonsAdapter extends RecyclerView.Adapter<OrderAddonsAdapter.
 
         Addon addon = itemList.get(position);
         DecimalFormat formatter = new DecimalFormat("0.00");
-        Float itemPrice=Float.parseFloat(addon.getPrice());
+        Float itemPrice = 0.0f;
+        int quant = 0;
+        try {
+            itemPrice = Float.parseFloat(addon.getPrice());
+            quant = Integer.parseInt(addon.getQuantity());
+        } catch (Exception ex) {
 
+        }
+        Float totalAddonsPrice = quant * itemPrice*1.0f;
         viewHolder.txtItemName.setText(addon.getAddonName());
-        viewHolder.txtItemPrice.setText(Constants.EURO + formatter.format(itemPrice));
+        viewHolder.txtItemPrice.setText(Constants.EURO + formatter.format(totalAddonsPrice));
         viewHolder.txtItemUnitPrice.setText(Constants.EURO + formatter.format(itemPrice));
         String quantity = "Quantity : " + addon.getQuantity();
         viewHolder.txtItemQuantity.setText(quantity);
@@ -62,8 +68,7 @@ public class OrderAddonsAdapter extends RecyclerView.Adapter<OrderAddonsAdapter.
     }
 
 
-
-     class ItemHolder extends RecyclerView.ViewHolder {
+    class ItemHolder extends RecyclerView.ViewHolder {
         private TextView txtItemName;
         private TextView txtItemQuantity;
         private TextView txtItemPrice;

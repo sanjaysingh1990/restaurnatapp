@@ -47,5 +47,6 @@
     <string name="error_empty_email">Please enter email</string>
     <string name="error_invalid_email">Invalid email</string>
     <string name="error_empty_password">Please enter password</string>
+    <string name="expired_heading">Expired</string>
 
 </resources>

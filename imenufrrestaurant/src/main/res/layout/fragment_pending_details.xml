@@ -14,7 +14,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
 
         <Button
             android:id="@+id/btn_accept"
@@ -71,7 +73,8 @@
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="0dp"
                 android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"

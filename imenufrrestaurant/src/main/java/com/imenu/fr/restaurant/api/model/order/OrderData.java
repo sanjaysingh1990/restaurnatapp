@@ -45,6 +45,19 @@ public class OrderData implements Serializable {
     @Expose
     private List<OrderItem> items = null;
 
+    public String getDeliveryCharges() {
+        return deliveryCharges;
+    }
+
+    public void setDeliveryCharges(String deliveryCharges) {
+        this.deliveryCharges = deliveryCharges;
+    }
+
+    @SerializedName("delivery_charges")
+    @Expose
+    private String deliveryCharges;
+
+
     public String getOrdetTime() {
         return ordetTime;
     }

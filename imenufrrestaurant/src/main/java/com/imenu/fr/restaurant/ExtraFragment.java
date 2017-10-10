@@ -124,6 +124,8 @@ public class ExtraFragment extends BaseFragment {
                     intent.putExtra(Constants.DETAIL_HEADING, getResources().getString(R.string.rejected));
                 else if (getArguments().getInt("index") == 4)
                     intent.putExtra(Constants.DETAIL_HEADING, getResources().getString(R.string.completed));
+                else if (getArguments().getInt("index") == 5)
+                    intent.putExtra(Constants.DETAIL_HEADING, getString(R.string.expired_heading));
 
 
                 intent.putExtra(Constants.DATA, itemsData.get(position));

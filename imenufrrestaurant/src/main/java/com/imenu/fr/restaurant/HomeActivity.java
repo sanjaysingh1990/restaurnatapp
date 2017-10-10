@@ -418,7 +418,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
                 extraFragment = (ExtraFragment) adapter.getItem(5);
                 if (!extraFragment.isDataLoaded) {
                     orderRequest.setStore_id(storeId);
-                    orderRequest.setStatus(Constants.COMPLETED);
+                    orderRequest.setStatus(Constants.EXPIRED);
                     orderRequest.setLimit(Constants.LIMIT);
                     orderRequest.setOffset(offset);
                     presenterImp.requestData(orderRequest);
@@ -765,7 +765,7 @@ public class HomeActivity extends BaseActivity implements IOrderContract.OrderVi
         boolean status = Utils.getInstance().getValue(Constants.IS_DEVICE_REGISTERED, false, this);
         if (!status) {
             String devicetoken = FirebaseInstanceId.getInstance().getToken();
-             //Log.e("device token", devicetoken + "");
+             Log.e("device token", devicetoken + "");
             if (devicetoken != null) {
                 UpdteTokenRequest updteTokenRequest = new UpdteTokenRequest();
                 updteTokenRequest.setDeviceToken(devicetoken);

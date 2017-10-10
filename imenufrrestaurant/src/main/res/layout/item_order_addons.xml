@@ -67,7 +67,7 @@
                 android:id="@+id/txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="5"
+
                 android:maxLines="1"
                 android:text="10"
                 android:textSize="@dimen/font_size"
@@ -101,7 +101,7 @@
                 android:id="@+id/txt_unit_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLength="5"
+
                 android:maxLines="1"
                 android:text="12.00"
                 android:textSize="@dimen/font_size"

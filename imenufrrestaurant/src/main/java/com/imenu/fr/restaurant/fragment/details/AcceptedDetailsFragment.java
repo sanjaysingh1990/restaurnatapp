@@ -5,6 +5,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.imenu.fr.restaurant.datatypes.Address;
 import com.imenu.fr.restaurant.datatypes.Item;
 import com.imenu.fr.restaurant.fragment.BaseFragment;
 import com.imenu.fr.restaurant.utils.Constants;
+import com.imenu.fr.restaurant.utils.DividerItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,6 +75,8 @@ public class AcceptedDetailsFragment extends BaseFragment {
         mItemList = new ArrayList<Object>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         binding.recyclerView.setLayoutManager(layoutManager);
+//        binding.recyclerView.addItemDecoration(
+//                new DividerItemDecoration(ContextCompat.getDrawable(getActivity(),R.drawable.item_divider)));
         mAdapter = new OrderDetailsAdapter(getActivity(), mItemList);
         binding.recyclerView.setAdapter(mAdapter);
         addItems();
@@ -80,13 +85,15 @@ public class AcceptedDetailsFragment extends BaseFragment {
 
     private void addItems() {
         OrderData orderData = (OrderData) getActivity().getIntent().getSerializableExtra(Constants.DATA);
-        DecimalFormat formatter = new DecimalFormat("0.00");
+        DecimalFormat formatter = new DecimalFormat("#.00");
 
         if (orderData != null) {
             for (OrderItem dataitem : orderData.getItems()) {
                 Item item = new Item();
                 item.setItemName(dataitem.getItemName());
-                item.setItemPrice(Constants.EURO + formatter.format(dataitem.getItemPrice()));
+                Float totalItemPrice=(dataitem.getQuantity()*dataitem.getUnitPrice()*1.00f);
+
+                item.setItemPrice(Constants.EURO + formatter.format(totalItemPrice));
                 item.setItemUnitPrice(Constants.EURO + formatter.format(dataitem.getUnitPrice()));
                 item.setItemQuantity(String.valueOf(dataitem.getQuantity()));
                 item.setAddonList(dataitem.getAddons());
@@ -97,6 +104,7 @@ public class AcceptedDetailsFragment extends BaseFragment {
             address.setBuyerName(orderData.getBuyerName());
             address.setBuyerAddress(orderData.getBuyerAddress());
             address.setTotalPrice(orderData.getTotalAmount());
+            address.setDeliveryCharges(Constants.EURO+orderData.getDeliveryCharges());
             String deliveryDateTime;
             if (orderData.getOrdetTime() != null)
                 deliveryDateTime = orderData.getOrdetTime();//orderData.getDeliveryDate() + "  " + orderData.getDeliveryTime();
